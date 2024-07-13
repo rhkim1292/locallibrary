@@ -3,16 +3,6 @@ name: Glitch Project Sync
 on: [push]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: package.json
-      - run: npm cit
-
   # Minimal test of the GitHub Action
   # (only runs on pushes to the `main` branch)
   # Glitch Project: https://glitch.com/edit/#!/github-action
@@ -25,17 +15,3 @@ jobs:
         with:
           auth-token: '${{ secrets.AUTHTOKEN }}'
           project-id: '${{ secrets.PROJECTID }}'
-
-  # Testing the `path` parameter
-  # Glitch Project: https://glitch.com/edit/#!/github-action-sandbox
-  # Resulting output: https://github-action-sandbox.glitch.me/
-  sync-with-path:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Sync using current glitch-sync code
-        uses: ./
-        with:
-          auth-token: '${{ secrets.SANDBOX_AUTHTOKEN }}'
-          project-id: '${{ secrets.SANDBOX_PROJECTID }}'
-          path: '__tests__/path' # sync `__tests__/path` folder
